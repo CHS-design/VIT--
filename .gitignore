@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+*.so
+.Python
+
+# 项目产物
+data/*
+!data/README.md
+checkpoints/*
+!checkpoints/README.md
+*.pt
+*.pth
+*.onnx
+
+# 实验临时
+*.log
+*.json.bak
+runs/
+.ipynb_checkpoints/
+
+# 工具 / 环境
+.workbuddy/
+.venv/
+venv/
+.env
