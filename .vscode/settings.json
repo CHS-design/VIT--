@@ -1,3 +1,6 @@
 {
-    "python.defaultInterpreterPath": "C:\\Users\\29142\\miniconda3\\envs\\pytorch\\python.exe"
+    "python.defaultInterpreterPath": "C:\\Users\\29142\\miniconda3\\envs\\pytorch\\python.exe",
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "basedpyright.analysis.typeCheckingMode": "standard"
 }
