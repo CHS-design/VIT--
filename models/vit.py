@@ -1,9 +1,11 @@
 """models/vit.py — ViT 总装"""
+
 import torch
 from torch import nn
+
 from configs import config as cfg
-from models.patch_embed import PatchEmbedding
 from models.block import EncoderBlock
+from models.patch_embed import PatchEmbedding
 
 
 class ViT(nn.Module):
