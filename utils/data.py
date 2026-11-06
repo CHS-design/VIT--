@@ -70,15 +70,4 @@ def build_dataloaders():
     return train_loader, val_loader, test_loader
 
 
-if __name__ == "__main__":
-    train_set, val_set, test_set = build_datasets()
-    tr, va, te = build_dataloaders()
 
-    x, y = next(iter(tr))
-    print("x:", tuple(x.shape), x.dtype, "| y:", tuple(y.shape), y.dtype)
-    print(
-        "min/max/mean/std: %.3f %.3f %.4f %.4f" % (x.min(), x.max(), x.mean(), x.std())
-    )
-    print("len  :", len(train_set), len(val_set), len(test_set))
-    print("iters:", len(tr), len(va), len(te))
-    print("overlap:", len(set(train_set.indices) & set(val_set.indices)))
