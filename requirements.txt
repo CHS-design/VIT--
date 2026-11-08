@@ -1,0 +1,44 @@
+# ============================================================
+# ViT 复现 — 项目依赖
+# 论文: An Image is Worth 16x16 Words (arXiv:2010.11929)
+# 数据集: CIFAR-10 / 模型: 手写缩小版 ViT (6,350,602 参数)
+# ============================================================
+# 环境约定（configs/config.py 与项目记忆）
+#   本机   : RTX 3050 Laptop 4GB / Python 3.12.14 / conda env "pytorch"
+#            C:\Users\29142\miniconda3\envs\pytorch\python.exe
+#            只做玩具冒烟（几分钟内），不做全量训练
+#   服务器 : RTX 5080 (Blackwell sm_120) / torch 2.14 + cu132
+#            全量训练与评估在这里执行
+#
+# 安装（由你本人在终端执行，AI 不代装）
+#   已有配好 GPU torch 的环境：
+#       pip install -r requirements.txt
+#   全新环境，需先按 CUDA 版本装 torch 全家（否则可能装成 CPU 版）：
+#       pip install torch==2.14.0 torchvision==0.29.0 \
+#           --index-url https://download.pytorch.org/whl/cu126   # 本机 3050
+#       pip install torch==2.14.0 torchvision==0.29.0 \
+#           --index-url https://download.pytorch.org/whl/cu132   # 服务器 5080
+#       pip install -r requirements.txt
+#   说明：torch / torchvision 版本号不带 +cuXXX 后缀，
+#         CUDA 变体由安装源决定；PEP 440 下 ==2.14.0 兼容 2.14.0+cu126。
+#
+# 库使用边界（硬性约定，见 models/README.md）
+#   禁: timm、torchvision.models、nn.MultiheadAttention、
+#       nn.TransformerEncoderLayer、F.scaled_dot_product_attention
+#       —— 凡属"论文里的结构或数学"必须自己写
+#   许: datasets.CIFAR10、transforms、DataLoader、
+#       nn.Linear|Conv2d|LayerNorm|Parameter、F.softmax 等基础算子
+#   判据: 数据 IO 与基础算子可用库，结构与数学自己写
+#
+# IDE 侧工具（不进本文件）: basedpyright 类型检查、Ruff 格式化，
+#   配置在 .vscode/settings.json
+# ============================================================
+
+# --- 模型与训练 ---
+torch==2.14.0            # 全部模型/训练/评估；configs/config.py 用它判断 DEVICE
+torchvision==0.29.0      # datasets.CIFAR10 + transforms（数据 IO，非现成模型）
+numpy==1.26.4            # train.py 的 np.random.seed；CIFAR pickle 解包
+
+# --- 可视化（训练与可视化分离，独立脚本）---
+matplotlib==3.7.5        # plot_curve.py 读 loss_history.json 画三条曲线
+Pillow==10.1.0           # torchvision 底层 PIL 图像；ToTensor 的输入类型
